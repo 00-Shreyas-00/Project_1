@@ -1,0 +1,21 @@
+# Next Instruction
+
+## Status
+COMPLETED
+
+## Task
+Implement Pydantic models and SerpAPI client wrapper.
+
+## Steps
+1. Define `SearchRequest` model in `app/models/request.py` (query string).
+2. Define `ShoppingResult` and `SearchResponse` models in `app/models/response.py`.
+3. Implement `SerpClient` in `app/services/serp_client.py` using `httpx.AsyncClient`.
+4. Implement a mock response for testing if `SERP_API_KEY` is not provided or for unit tests.
+
+## Acceptance Criteria
+- Models are strictly typed and follow project standards.
+- `SerpClient` handles HTTP errors and returns validated Pydantic models.
+- Basic unit tests for the client in `tests/test_serp_client.py`.
+
+## After Completion
+Updated to COMPLETED on 2026-03-19. Next task is in instruction[3].txt.

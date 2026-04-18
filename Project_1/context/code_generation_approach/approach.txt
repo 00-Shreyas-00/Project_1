@@ -1,0 +1,51 @@
+- Read the context folder to understand project status.
+- Follow coding standards in context/coding_standards.
+- Execute instructions from context/next_instruction.
+
+# Code Generation Approach
+
+## Philosophy
+Generate minimal, working, readable code first.
+Avoid over-engineering. Prefer explicit over clever.
+
+## File Generation Rules
+- Generate one file at a time unless files are tightly coupled
+- Always include the full file path as a comment on line 1
+- Always include imports at the top, grouped: stdlib → third-party → local
+- Never leave TODO comments in generated code — either implement or omit
+
+## Agent Tool Definitions (Google ADK)
+- Each tool must be a standalone async function with a clear docstring
+- Tool inputs and outputs must use Pydantic models, not raw dicts
+- Tool names must be verb_noun format (e.g. extract_shopping_intent)
+- Register all tools explicitly in the agent definition file
+
+## Query Builder Rules
+- The query builder must accept a structured intent object (Pydantic model)
+- It must return a typed SerpAPIParams object, never a raw dict
+- Filters (price_min, price_max, brand, category) are all Optional fields
+- Always set engine="google_shopping" and gl="us" as defaults
+
+## SerpAPI Client Rules
+- Use httpx.AsyncClient with a timeout of 10 seconds
+- Always validate the response status code before parsing
+- Parse only the shopping_results key from the SerpAPI response
+- Return a list of ShoppingResult Pydantic models
+
+## Code Comments
+- Comment the "why", not the "what"
+- Complex ADK prompt instructions must have an inline comment explaining intent
+- No commented-out code blocks in committed files
+
+## Prompt Structure for Sub-tasks
+When generating a prompt for a sub-task, always follow this structure:
+  1. State the file path to create or modify
+  2. List the imports required
+  3. Describe the function/class signature
+  4. Describe the logic in plain English
+  5. List edge cases to handle
+  6. State the expected output/return type
+
+## Dump Rules
+If you want to create files that are non-critical to the project itself and are only for reference or documentation, place the files in context/dump folder.
+Remember that you should not create any files you need to read outputs, to reference, or for any other purpose that is not directly related to the project itself inside the project root folder. 

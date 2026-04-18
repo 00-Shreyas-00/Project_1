@@ -1,0 +1,22 @@
+# Next Instruction
+
+## Status
+COMPLETED
+
+## Task
+Implement Google ADK Agent and Shopping Tool.
+
+## Steps
+1. Define the system prompt for the shopping agent in `app/agents/shopping_agent.py`.
+2. Implement the `extract_shopping_intent` tool using Google ADK.
+3. Configure the agent to use the Gemini model (via `GOOGLE_API_KEY`).
+4. Implement a basic test for the agent (mocking the LLM) in `tests/test_agent.py`.
+
+## Acceptance Criteria
+- The agent can be initialized without errors. (MET: Verified in venv)
+- The system prompt clearly defines the intent extraction logic. (MET)
+- The `extract_shopping_intent` tool returns a valid `ShoppingIntent` model. (MET: Verified via mock tests in venv)
+
+## After Completion
+Updated to COMPLETED on 2026-03-19. Next task is in instruction[5].txt.
+The project now uses a virtual environment ('venv') to resolve Google ADK dependency conflicts.

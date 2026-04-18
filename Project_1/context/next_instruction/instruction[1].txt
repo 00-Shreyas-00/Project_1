@@ -1,0 +1,34 @@
+# Next Instruction
+
+## Status
+COMPLETED
+
+## Task
+Set up the base project scaffold.
+
+## Steps
+1. Create the full folder structure defined in project_architecture.txt
+2. Create app/main.py with a bare FastAPI app instance and a /health GET route
+3. Create app/config.py using pydantic-settings BaseSettings to load:
+   - SERP_API_KEY
+   - GOOGLE_API_KEY
+4. Create requirements.txt with:
+   - fastapi
+   - uvicorn
+   - httpx
+   - pydantic
+   - pydantic-settings
+   - google-adk
+   - serpapi
+   - python-dotenv
+   - pytest
+   - pytest-asyncio
+5. Create a .env.example file with placeholder values for all required keys
+
+## Acceptance Criteria
+- `uvicorn app.main:app --reload` starts without errors
+- GET /health returns { "status": "ok" }
+- .env.example is present and documents all required secrets
+
+## After Completion
+Updated to COMPLETED on 2026-03-19. Next task is in instruction[2].txt.

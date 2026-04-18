@@ -1,0 +1,48 @@
+# Coding Standards & Best Practices
+
+## Language & Runtime
+- Python 3.11+ only
+- All files must include type hints on every function signature
+- Use `from __future__ import annotations` at the top of every module
+
+## Formatting & Linting
+- Formatter:   black (line length 88)
+- Linter:      ruff
+- Type check:  mypy (strict mode)
+- Run before every commit: black . && ruff check . && mypy app/
+
+## Naming Conventions
+- Variables & functions:  snake_case
+- Classes:                PascalCase
+- Constants:              UPPER_SNAKE_CASE
+- Private methods:        _prefixed_with_underscore
+- Files & folders:        lowercase_snake_case
+
+## Functions & Methods
+- Every function must have a docstring (one-line minimum)
+- Max function length: 40 lines — split if longer
+- Max file length: 200 lines — split into modules if longer
+- No mutable default arguments (use None + guard instead)
+- Prefer pure functions; avoid global state
+
+## Error Handling
+- Use custom exception classes defined in app/exceptions.py
+- Never use bare `except:` — always catch specific exceptions
+- All external API calls (SerpAPI, ADK) must be wrapped in try/except
+- Return structured error responses via FastAPI HTTPException
+
+## Async
+- All FastAPI route handlers must be async def
+- All I/O-bound operations (HTTP calls, file reads) must use await
+- Use httpx.AsyncClient for all outbound HTTP requests
+
+## Environment & Secrets
+- All secrets loaded exclusively through config.py
+- config.py reads from .env using pydantic-settings BaseSettings
+- Never import os.environ directly in business logic files
+
+## Testing
+- Test file naming: test_<module_name>.py
+- Minimum one unit test per public function
+- Use pytest + pytest-asyncio for async tests
+- Mock all external API calls in tests (never hit real SerpAPI in tests)

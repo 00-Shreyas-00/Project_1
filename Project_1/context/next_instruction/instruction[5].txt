@@ -1,0 +1,22 @@
+# Next Instruction
+
+## Status
+COMPLETED
+
+## Task
+Implement Main Search Flow and Router.
+
+## Steps
+1. Implement the `POST /search` route in `app/routers/search.py`.
+2. Connect the `ShoppingAgent`, `QueryBuilder`, and `SerpClient` in the router.
+3. Handle errors (e.g., ADK failures, SerpAPI timeout) and return appropriate `SearchResponse`.
+4. Update `app/main.py` to include the search router.
+
+## Acceptance Criteria
+- `POST /search` with a raw query returns a list of `ShoppingResult` objects. (MET: Verified via integration tests)
+- Mock mode works correctly when no API keys are provided. (MET)
+- Integration tests in `tests/test_integration.py`. (MET: 100% pass in venv)
+
+## After Completion
+Updated to COMPLETED on 2026-03-19. All project instructions are now complete.
+The application is fully integrated and tested.

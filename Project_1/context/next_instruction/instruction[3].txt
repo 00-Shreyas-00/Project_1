@@ -1,0 +1,21 @@
+# Next Instruction
+
+## Status
+COMPLETED
+
+## Task
+Implement Query Builder and Shopping Intent model.
+
+## Steps
+1. Define `ShoppingIntent` model in `app/models/request.py` (product_type, brand, price_min, price_max, etc.).
+2. Implement `QueryBuilder` in `app/services/query_builder.py`.
+3. `QueryBuilder.build_params(intent: ShoppingIntent)` should return a dict of SerpAPI parameters.
+4. Add unit tests in `tests/test_query_builder.py`.
+
+## Acceptance Criteria
+- `QueryBuilder` correctly maps all `ShoppingIntent` fields to SerpAPI search parameters.
+- Optional fields in `ShoppingIntent` are handled gracefully (not included in params if None).
+- Unit tests cover various intent combinations.
+
+## After Completion
+Updated to COMPLETED on 2026-03-19. Next task is in instruction[4].txt.

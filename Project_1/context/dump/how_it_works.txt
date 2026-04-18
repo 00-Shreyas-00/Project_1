@@ -1,0 +1,35 @@
+# How the Shopping Query Agent Works
+
+## Overview
+The Shopping Query Agent is a FastAPI-based service that converts natural language shopping requests (e.g., "Find me a red Nike shoe under $100") into structured search results using the Google Agent Development Kit (ADK) and SerpAPI.
+
+## The Core Flow (Step-by-Step)
+
+1. **User Request**: 
+   The user sends a JSON request to `POST /api/v1/search` containing a raw string `query`.
+
+2. **Intent Extraction (ShoppingAgent)**:
+   - The `ShoppingAgent` uses the **Google ADK** to communicate with the **Gemini 1.5 Flash** model.
+   - It follows a strict system instruction to parse the query into a structured `ShoppingIntent` object (identifying product type, brand, price range, etc.).
+
+3. **Query Construction (QueryBuilder)**:
+   - The structured `ShoppingIntent` is passed to the `QueryBuilder`.
+   - The builder maps these fields to specific **SerpAPI Google Shopping** parameters (e.g., mapping price ranges to the `tbs` parameter).
+
+4. **External Search (SerpClient)**:
+   - The `SerpClient` makes an asynchronous HTTP request to SerpAPI.
+   - **Mock Mode**: If no `SERP_API_KEY` is provided, the client automatically falls back to returning high-quality mock data, allowing for offline development.
+
+5. **Response**:
+   - The engine returns a `SearchResponse` containing a list of `ShoppingResult` objects (title, price, source, link).
+
+## Key Components
+
+- **App Structure**: Modular design with separate folders for `models`, `services`, `routers`, and `agents`.
+- **Environment Management**: Includes a `venv` (virtual environment) to isolate the complex AI dependencies of the Google ADK.
+- **Validation**: Uses **Pydantic** throughout to ensure all data moving between components is valid and well-typed.
+
+## How to Run
+1. Activate the environment: `venv\Scripts\activate`
+2. Start the server: `python -m uvicorn app.main:app --reload`
+3. Test a query: Use the standard FastAPI Swagger UI at `/docs` or send a `POST` to `/api/v1/search`.

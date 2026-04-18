@@ -1,0 +1,44 @@
+# Project Architecture
+
+## Overview
+This project is a Python-based backend API that accepts a natural language shopping query,
+processes it through a Google ADK agent to extract structured intent, builds a SerpAPI
+Google Shopping request, and returns normalized product results.
+
+## Stack
+- Runtime:        Python 3.11+
+- API Framework:  FastAPI
+- NL Agent:       Google ADK (Agent Development Kit)
+- Shopping Data:  SerpAPI (Google Shopping engine)
+- Validation:     Pydantic v2
+- Config:         python-dotenv
+
+## Folder Structure
+shopping-query-agent/
+├── app/
+│   ├── main.py                        # FastAPI entry point
+│   ├── routers/search.py              # POST /search route
+│   ├── agents/shopping_agent.py       # Google ADK agent
+│   ├── services/query_builder.py      # Builds SerpAPI params from intent
+│   ├── services/serp_client.py        # SerpAPI HTTP wrapper
+│   ├── models/request.py              # Input schemas
+│   ├── models/response.py             # Output schemas
+│   └── config.py                      # Env var loader
+├── context/                           # Agent context & instructions
+├── tests/                             # Unit tests
+├── .env                               # API keys (never commit)
+└── requirements.txt
+
+## Request Lifecycle
+1. Client sends POST /search with a raw natural language query
+2. FastAPI router validates the input via Pydantic
+3. Google ADK agent extracts: product type, brand, price range, filters
+4. Query builder maps extracted intent to SerpAPI parameters
+5. SerpAPI client fires the Google Shopping request
+6. Response formatter normalises and returns a product list
+
+## Key Design Decisions
+- ADK agent is stateless per request (no session memory between calls)
+- SerpAPI params are always validated before dispatch
+- All secrets loaded from .env via config.py, never hardcoded
+- Pydantic models enforce strict input/output contracts
