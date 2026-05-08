@@ -1,0 +1,25 @@
+# Next Instruction [7]
+
+## Status
+COMPLETED
+
+## Task
+Implement the CLIP Embedding Service for text and image vectorization.
+
+## Steps
+1. Add CLIP and Torch dependencies to `requirements.txt`.
+2. Implement `app/services/clip_service.py` with text and image embedding methods.
+3. Use `ViT-B/32` as the base model.
+4. Ensure embeddings are normalized for cosine similarity.
+5. Create a verification script in `tests/test_clip_service.py`.
+
+## Acceptance Criteria
+- `ClipService` successfully loads the model and preprocessor. (MET: Implemented in __init__)
+- `get_text_embedding` returns a 512-dimensional vector for a given string. (MET: Verified via test_clip_service.py)
+- `get_image_embedding` returns a 512-dimensional vector for a given image. (MET: Verified via test_clip_service.py)
+- Embeddings are unit vectors (magnitude = 1.0). (MET: Verified via norm check in tests)
+
+## After Completion
+Updated to COMPLETED on 2026-04-20. The CLIP Embedding Service is fully operational.
+The service handles both natural language and image inputs, generating normalized 512-dimensional vectors suitable for similarity search.
+A verification suite has been added to ensure ongoing reliability.

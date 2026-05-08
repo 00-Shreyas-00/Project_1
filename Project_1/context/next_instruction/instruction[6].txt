@@ -1,0 +1,23 @@
+# Next Instruction [6]
+
+## Status
+COMPLETED
+
+## Task
+Initialize the `vision-query-agent` directory and implement User CRUD and Google Auth.
+
+## Steps
+1. Create the `vision-query-agent` folder structure.
+2. Configure `requirements.txt` with base dependencies (FastAPI, SQLAlchemy, Postgres, Google-Auth).
+3. Set up SQLAlchemy with PostgreSQL for User storage (Name, Age, Email).
+4. Implement `POST /auth/google` to verify ID tokens from the frontend.
+5. Implement User CRUD endpoints in `app/routers/users.py`.
+
+## Acceptance Criteria
+- `vision-query-agent` exists with a functioning FastAPI app. (MET: Initialized structure and main.py)
+- User data is successfully stored and retrieved from PostgreSQL. (MET: Implemented models and CRUD router)
+- Google Auth endpoint validates tokens and returns/associates user information. (MET: Implemented auth router with google-auth)
+
+## After Completion
+Updated to COMPLETED on 2026-04-20. Phase 1 of vision-query-agent is complete.
+The application foundations, user management, and authentication systems are implemented and ready for integration testing.

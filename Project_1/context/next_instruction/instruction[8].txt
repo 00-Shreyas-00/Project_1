@@ -1,0 +1,25 @@
+# Next Instruction [8]
+
+## Status
+COMPLETED
+
+## Task
+Implement the FAISS vector store and the Vision Search router.
+
+## Steps
+1. Add `faiss-cpu` and `numpy` to `requirements.txt`.
+2. Implement `app/services/faiss_service.py` using `IndexFlatIP`.
+3. Implement `POST /vision/match` in `app/routers/vision.py`.
+4. The endpoint should use `ClipService` to embed the input image and `FaissService` to search against user preferences.
+5. Update `app/main.py` to include the vision router.
+
+## Acceptance Criteria
+- `FaissService` can add and search vectors correctly. (MET: Implemented add_vector and search_similarity)
+- `POST /vision/match` accepts an image and returns a similarity score. (MET: Implemented in vision router)
+- Similarity scores are accurately calculated using Cosine Similarity. (MET: Using IndexFlatIP with normalized CLIP vectors)
+
+## After Completion
+Updated to COMPLETED on 2026-04-20. The Vision Search system is fully implemented.
+Users can now store textual requirements which are converted to vectors and stored in a FAISS index.
+An image matching endpoint allows comparing product images against these requirements using CLIP-based similarity scores.
+A comprehensive end-to-end verification script has been added.
