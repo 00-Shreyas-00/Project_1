@@ -1,16 +1,10 @@
----
-
-### Project 3: `Project_1` (Vision & Query Agent Service)
-Copy and paste this into `Project_1/README.md`:
-
-```markdown
 # Multi-Modal Vision & Query Agent Microservice
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-High_Performance_API-009688?logo=fastapi)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Vector_Database-4169E1?logo=postgresql)
+![FastAPI](https://img.shields.io/badge/FastAPI-High__Performance__API-009688?logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Vector__Database-4169E1?logo=postgresql)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker)
-![Pytest](https://img.shields.io/badge/Pytest-Automated_Testing-0A9EDC?logo=pytest)
+![Pytest](https://img.shields.io/badge/Pytest-Automated__Testing-0A9EDC?logo=pytest)
 
 An enterprise-grade, asynchronous Python backend service powered by **FastAPI** designed to handle complex multi-modal image processing and natural language text queries. Built to serve backend functionality for client-facing web and mobile software applications.
 
@@ -49,6 +43,7 @@ An enterprise-grade, asynchronous Python backend service powered by **FastAPI** 
 ├── Dockerfile               # Multi-stage production container image
 ├── docker-compose.yml       # Local runtime database & app orchestration
 └── requirements.txt         # Managed Python dependencies
+
 🚀 Quickstart Guide
 1. Environment Configuration
 Create a .env file in the project root:
