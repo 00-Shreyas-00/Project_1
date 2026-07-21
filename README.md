@@ -1,84 +1,70 @@
-# Multi-Modal Vision & Query Agent Microservice
+# Real-Time Chat Infrastructure & EKS GitOps Pipeline
 
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-High__Performance__API-009688?logo=fastapi)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Vector__Database-4169E1?logo=postgresql)
-![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker)
-![Pytest](https://img.shields.io/badge/Pytest-Automated__Testing-0A9EDC?logo=pytest)
+![AWS EKS](https://img.shields.io/badge/AWS-EKS-orange?logo=amazon-aws)
+![Docker](https://img.shields.io/badge/Docker-Containers-blue?logo=docker)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestration-326CE5?logo=kubernetes)
+![Jenkins](https://img.shields.io/badge/Jenkins-CD__Pipeline-D24939?logo=jenkins)
+![GitHub Actions](https://img.shields.io/badge/GitHub__Actions-CI-2088FF?logo=github-actions)
+![SonarQube](https://img.shields.io/badge/SonarQube-Code__Quality-4E9BCD?logo=sonarqube)
 
-An enterprise-grade, asynchronous Python backend service powered by **FastAPI** designed to handle complex multi-modal image processing and natural language text queries. Built to serve backend functionality for client-facing web and mobile software applications.
-
----
-
-## ⚡ Core Capabilities
-
-* **Multi-Modal Data Ingestion:** Processes high-resolution visual input alongside unstructured text streams.
-* **Vector Search & Embedding Analysis:** Integrates vector similarity algorithms to extract structured context and return schema-validated JSON responses.
-* **Automated Migration Engine:** Custom `init_db.py` bootstrap scripts for dynamic database schema provisioning and indexing.
-* **Reliability & Resilience:** Built-in fallback logging middleware and strict exception handling to preserve uptime during external agent API disruptions.
+A high-availability, containerized real-time chat application architecture deployed on **Amazon EKS** with dual-stage CI/CD automation, static code analysis, and dynamic infrastructure environment configuration.
 
 ---
 
-## 🛠 Tech Stack
-
-* **Core Framework:** Python 3.11+, FastAPI, Pydantic
-* **Data Layer:** PostgreSQL / Vector Extension, SQLAlchemy, Alembic
-* **Testing & Quality:** Pytest, HTTPX API testing
-* **Containerization:** Docker, Docker Compose
-
----
-
-## 📂 Project Structure
+## 📐 Architecture Overview
 
 ```text
+ [ Developer Commit ] 
+          │
+          ▼
+   [ GitHub Actions CI ] ────► ( Unit Tests & Linting ) ────► [ SonarQube Code Quality ]
+          │                                                               │
+          ▼                                                               ▼
+   [ Build Docker Image ] ───► [ Docker Hub (Tagged with Git SHA) ] ───► [ Jenkins CD ]
+                                                                          │
+                                                                          ▼
+                                                                [ AWS EKS Deployment ]
+                                                                 ├── Nginx Frontend
+                                                                 ├── Node.js Backend
+                                                                 └── Amazon RDS MySQL
+```
+
+## Key Engineering Highlights
+Immutable Commit-Based Tagging: Every CI execution builds and tags Docker images with the exact Git Commit SHA, guaranteeing full auditability and zero-downtime rollbacks.
 .
-├── app/
-│   ├── api/                 # FastAPI routes and endpoint handlers
-│   ├── core/                # Core configuration, security, and logging
-│   ├── db/                  # Database session configuration & ORM schemas
-│   ├── services/            # Vision & Query Agent business logic engines
-│   └── main.py              # Application entrypoint
-├── init_db.py               # Database initialization and automated migration script
-├── tests/                   # Pytest automated integration test suite
-├── Dockerfile               # Multi-stage production container image
-├── docker-compose.yml       # Local runtime database & app orchestration
-└── requirements.txt         # Managed Python dependencies
+├── .github/workflows/      # Automated CI workflow definition
+├── backend/                 # Node.js + Socket.io backend API & tests
+├── html/                    # React SPA frontend & Nginx config
+├── k8s/                     # Kubernetes manifests (Deployments, Services, ConfigMaps)
+├── Dockerfile               # Multi-stage production container builds
+├── docker-compose.yml       # Local development orchestration
+├── Jenkinsfile              # Continuous Deployment pipeline script
+└── SonarQube-DockerCompose.yml # Static analysis environment setup
+Dual-Environment Database Abstraction: Flexible backend runtime design using SQLite for local development and Amazon RDS MySQL for production.
 
-## 🚀 Quickstart Guide
+Kubernetes Orchestration: Decoupled deployment model using Kubernetes ConfigMaps for environment variables and Secrets for database credentials.
 
-### 1. Environment Configuration
-Create a `.env` file in the project root:
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/query_agent_db
-FASTAPI_ENV=development
-SECRET_KEY=your_secure_key
+Real-time Stateful Sockets: Scalable WebSocket management via Socket.io backed by Node.js.
 
-### 2. Run with Docker Compose
-# Build and bring up container environment
-docker-compose up --build -d
+## 🛠 Tech Stack
+Frontend: React.js, Vite, Nginx, Docker
 
-# Verify container status
-docker ps
+Backend: Node.js, Express.js, Socket.io, Jest, Docker
 
-### 3. Local Setup
-Bash
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+Database: SQLite (Dev), Amazon RDS MySQL (Prod)
 
-# Install dependencies
-pip install -r requirements.txt
+Infrastructure & CI/CD: AWS EKS, AWS EC2, Jenkins, GitHub Actions, Docker Compose, SonarQube, eksctl, kubectl
 
-# Run database initialization
-python init_db.py
+## 📂 Project Structure
+```text
+.
+├── .github/workflows/      # Automated CI workflow definition
+├── backend/                 # Node.js + Socket.io backend API & tests
+├── html/                    # React SPA frontend & Nginx config
+├── k8s/                     # Kubernetes manifests (Deployments, Services, ConfigMaps)
+├── Dockerfile               # Multi-stage production container builds
+├── docker-compose.yml       # Local development orchestration
+├── Jenkinsfile              # Continuous Deployment pipeline script
+└── SonarQube-DockerCompose.yml # Static analysis environment setup
+```
 
-# Launch API server
-uvicorn app.main:app --reload --port 8000
-Interactive OpenAPI / Swagger docs are exposed at http://localhost:8000/docs.
-
-🧪 Testing Suite
-Automated integration test suites ensure endpoint validation, execution handling, and response schema correctness:
-
-Bash
-# Run integration and API unit test suites
-pytest -v --tb=short
