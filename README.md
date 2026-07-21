@@ -44,22 +44,23 @@ An enterprise-grade, asynchronous Python backend service powered by **FastAPI** 
 ├── docker-compose.yml       # Local runtime database & app orchestration
 └── requirements.txt         # Managed Python dependencies
 
-🚀 Quickstart Guide
-1. Environment Configuration
-Create a .env file in the project root:
+## 🚀 Quickstart Guide
 
-Code snippet
+### 1. Environment Configuration
+Create a `.env` file in the project root:
+```env
 DATABASE_URL=postgresql://user:password@localhost:5432/query_agent_db
 FASTAPI_ENV=development
 SECRET_KEY=your_secure_key
-2. Run with Docker Compose
-Bash
+
+### 2. Run with Docker Compose
 # Build and bring up container environment
 docker-compose up --build -d
 
 # Verify container status
 docker ps
-3. Local Setup
+
+### 3. Local Setup
 Bash
 # Create virtual environment
 python -m venv venv
